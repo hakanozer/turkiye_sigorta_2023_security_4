@@ -24,6 +24,11 @@
                         </div>
                     </c:forEach>
                 </c:if>
+
+                <c:if test="${password != null}">
+                    <c:out value="${password}"></c:out>
+                </c:if>
+
                 <form action="/adminLogin" method="post">
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Email address</label>

@@ -25,11 +25,8 @@ public class LoginController {
         if ( result.hasErrors() ) {
             List<FieldError> ls = result.getFieldErrors();
             model.addAttribute("errors", ls);
-            for( FieldError error : ls ) {
-                System.out.println( error.getField() );
-                System.out.println( error.getDefaultMessage() );
-            }
         }else {
+            model.addAttribute("password", admin.getPassword());
             System.out.println( admin );
         }
         return "login";
