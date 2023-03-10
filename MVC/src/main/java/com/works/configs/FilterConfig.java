@@ -97,10 +97,32 @@ public class FilterConfig implements Filter {
         }
         long end = System.currentTimeMillis();
         long between = end - start;
-        System.out.println(between);
 
-        if ( !errorStatus )
-        chain.doFilter(request, response);
+        String[] urls = {"/", "/adminLogin", "/xssError"};
+        boolean loginStatus = true;
+        for ( String item : urls ) {
+            if (item.equals(url)) {
+                loginStatus = false;
+            }
+        }
+
+        if (loginStatus) {
+            boolean status = request.getSession().getAttribute("admin") == null;
+            if (status) {
+                response.sendRedirect("/");
+            }else {
+                Admin admin = (Admin) request.getSession().getAttribute("admin");
+                request.setAttribute("admin", admin);
+                chain.doFilter(request, response);
+            }
+        }else {
+            if ( !errorStatus ) {
+                chain.doFilter(request, response);
+            }
+        }
+
+
+
     }
 
 

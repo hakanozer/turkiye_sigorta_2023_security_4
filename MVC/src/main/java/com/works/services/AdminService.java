@@ -5,6 +5,7 @@ import com.works.repositories.AdminRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -17,6 +18,7 @@ public class AdminService {
     final DB db;
     final AdminRepository adminRepository;
     final TinkEncDec tinkEncDec;
+    final HttpServletRequest request;
 
     public boolean login(Admin admin) {
         try {
@@ -46,10 +48,15 @@ public class AdminService {
             Admin adm = optionalAdmin.get();
             String newPass = tinkEncDec.decrypt(adm.getPassword());
             if ( newPass.equals( admin.getPassword() )) {
+                request.getSession().setAttribute("admin", adm);
                 return true;
             }
         }
         return false;
+    }
+
+    public void logout() {
+        request.getSession().removeAttribute("admin");
     }
 
 
