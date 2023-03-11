@@ -25,5 +25,10 @@ public class ProductRestController {
         return service.list();
     }
 
+    @PostMapping("/list")
+    public List<Product> listPost() {
+        return service.list();
+    }
+
 
 }
