@@ -6,21 +6,19 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Data
-public class Note extends Base {
+public class Info {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long nid;
+    private Long iid;
 
-    @NotEmpty
-    @NotNull
-    private String title;
-    @NotEmpty
-    @NotNull
-    private String detail;
+    private String url;
+    private String name;
+    private String roles;
+    private String agent;
+    private String sessionId;
+    private Long date;
 }
